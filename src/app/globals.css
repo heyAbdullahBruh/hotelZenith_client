@@ -1,18 +1,17 @@
-@import "tailwindcss/preflight";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
+@import "tailwindcss";
+
+/* This links your CSS to your JS config file */
+@config "../../tailwind.config.mjs";
 
 :root {
   --background: #ffffff;
   --foreground: #0F172A;
 }
 
-/* Smooth Scrolling for the whole app */
 html {
   scroll-behavior: smooth;
 }
 
-/* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
 }
@@ -27,7 +26,6 @@ html {
   background: #926A05;
 }
 
-/* Datepicker Overrides (Prepare for Phase 3) */
 .react-datepicker-wrapper {
   width: 100%;
 }

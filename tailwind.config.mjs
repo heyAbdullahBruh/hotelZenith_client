@@ -1,8 +1,12 @@
+import forms from '@tailwindcss/forms';
+import typography from '@tailwindcss/typography';
+
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
@@ -14,7 +18,7 @@ export default {
           50: '#FFFAEB',
           100: '#FCEFC7',
           400: '#D9A404',
-          500: '#B48606', // HotelZenith Gold
+          500: '#B48606', 
           600: '#926A05',
           900: '#4D3601',
         },
@@ -22,7 +26,7 @@ export default {
           50: '#F8FAFC',
           100: '#F1F5F9',
           800: '#1E293B',
-          900: '#0F172A', // Deep Navy
+          900: '#0F172A', 
         },
       },
       fontFamily: {
@@ -53,7 +57,7 @@ export default {
     },
   },
   plugins: [
-    require('@tailwindcss/forms'),
-    require('@tailwindcss/typography'),
+    forms,
+    typography,
   ],
 };

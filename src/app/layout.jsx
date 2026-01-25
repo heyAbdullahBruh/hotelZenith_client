@@ -1,8 +1,8 @@
 import { Inter, Playfair_Display } from "next/font/google";
-import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { Toaster } from 'sonner';
 import "./globals.css";
+import Navbar from "@/components/layout/Navber";
 
 // Font Configuration
 const inter = Inter({ 
