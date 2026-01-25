@@ -4,6 +4,7 @@ import { Toaster } from "sonner";
 import "./globals.css";
 import Navbar from "@/components/layout/Navber";
 import CartDrawer from "@/components/layout/CartDrawer";
+import AppInitializer from "@/components/layout/AppInitializer";
 
 // Font Configuration
 const inter = Inter({
@@ -29,8 +30,8 @@ export default function RootLayout({ children }) {
     <html lang="en" className={`${inter.variable} ${playfair.variable}`}>
       <body className="font-body antialiased bg-secondary-50 text-secondary-900 selection:bg-primary-500 selection:text-white">
         {/* Navbar sits on top of content */}
+        <AppInitializer />
         <Navbar />
-
         <main className="min-h-screen">{children}</main>
 
         <Footer />
