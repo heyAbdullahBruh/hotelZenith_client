@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { Plus, Star, Clock, Flame, Leaf } from "lucide-react";
+import { Plus, Star, Flame, Leaf } from "lucide-react";
 import { useCartStore } from "@/lib/store/useCartStore";
 
 export default function FoodCard({ food }) {

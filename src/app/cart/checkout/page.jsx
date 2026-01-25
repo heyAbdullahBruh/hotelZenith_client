@@ -65,7 +65,7 @@ export default function CheckoutPage() {
     try {
       await orderService.create({
         ...data,
-        items: items.map((i) => ({ foodId: i.foodId, quantity: i.quantity })),
+        items: items.map((i) => ({ foodId: i._id, quantity: i.quantity })),
       });
 
       // Success Sequence
@@ -249,7 +249,7 @@ export default function CheckoutPage() {
               <div className="space-y-4 mb-6 max-h-60 overflow-y-auto pr-2 custom-scrollbar">
                 {items.map((item) => (
                   <div
-                    key={item.foodId}
+                    key={item._id}
                     className="flex justify-between text-sm"
                   >
                     <span className="text-gray-300">

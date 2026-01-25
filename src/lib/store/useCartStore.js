@@ -1,6 +1,6 @@
-import { create } from "zustand";
-import { cartService } from "@/lib/services/cartService";
-import { toast } from "sonner";
+import { create } from 'zustand';
+import { cartService } from '@/lib/services/cartService';
+import { toast } from 'sonner';
 
 export const useCartStore = create((set, get) => ({
   items: [],
@@ -16,9 +16,9 @@ export const useCartStore = create((set, get) => ({
       const response = await cartService.get();
       // Backend returns: { success: true, data: { items: [], summary: {} } }
       if (response.success && response.data) {
-        set({
-          items: response.data.items || [],
-          summary: response.data.summary || { itemCount: 0, total: 0 },
+        set({ 
+          items: response.data.items || [], 
+          summary: response.data.summary || { itemCount: 0, total: 0 } 
         });
       }
     } catch (error) {
@@ -28,14 +28,11 @@ export const useCartStore = create((set, get) => ({
     }
   },
 
-  addItem: async (foodId, quantity = 1, instructions = "") => {
+  addItem: async (foodId, quantity = 1, instructions = '') => {
     // Optimistic UI update (optional, but makes it feel fast)
     const prevSummary = get().summary;
-    set((state) => ({
-      summary: {
-        ...state.summary,
-        itemCount: state.summary.itemCount + quantity,
-      },
+    set(state => ({ 
+      summary: { ...state.summary, itemCount: state.summary.itemCount + quantity }
     }));
 
     try {
@@ -60,23 +57,20 @@ export const useCartStore = create((set, get) => ({
   },
 
   updateQuantity: async (cartItemId, quantity) => {
-    try {
-      await cartService.update(cartItemId, quantity);
-      get().fetchCart();
-    } catch (error) {
-      toast.error("Failed to update quantity");
-    }
+     try {
+       await cartService.update(cartItemId, quantity);
+       get().fetchCart();
+     } catch (error) {
+       toast.error("Failed to update quantity");
+     }
   },
-
+  
   clearCart: async () => {
     try {
       await cartService.clear();
-      set({
-        items: [],
-        summary: { itemCount: 0, subtotal: 0, tax: 0, total: 0 },
-      });
+      set({ items: [], summary: { itemCount: 0, subtotal: 0, tax: 0, total: 0 } });
     } catch (error) {
-      console.error(error);
+       console.error(error);
     }
-  },
+  }
 }));
