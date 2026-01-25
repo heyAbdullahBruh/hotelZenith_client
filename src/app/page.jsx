@@ -44,10 +44,14 @@ export default function Home() {
         <div className="container">
           <SectionHeader title="Signature Dishes" subtitle="Chef's Selection" />
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-            {FEATURED_ITEMS.map((item) => (
-              <FoodCard key={item.id} food={item} />
-            ))}
+         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+            {featuredFoods.length > 0 ? (
+              featuredFoods.map((item) => (
+                <FoodCard key={item._id} food={item} />
+              ))
+            ) : (
+               <div className="col-span-3 text-center text-secondary-400">Loading signature dishes...</div>
+            )}
           </div>
 
           <div className="text-center">
