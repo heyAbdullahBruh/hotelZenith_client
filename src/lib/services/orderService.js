@@ -1,25 +1,28 @@
-import api from '@/lib/axios';
+import api from "@/lib/axios";
 
 export const orderService = {
-  // Create a new order from the current cart
+  // Matches POST /api/orders/create
   create: async (orderData) => {
-    return api.post('/api/orders/create', orderData);
-  },
-
-  // Get current guest's order history
-  getMyOrders: async (params) => {
-    const response = await api.get('/api/orders/my-orders', { params });
+    // orderData should match { customerName, phone, address, orderType... }
+    const response = await api.post("/api/orders/create", orderData);
     return response.data;
   },
 
-  // Get specific order details
+  // Matches GET /api/orders/my-orders
+  getMyOrders: async (params = {}) => {
+    const response = await api.get("/api/orders/my-orders", { params });
+    return response.data;
+  },
+
+  // Matches GET /api/orders/:orderId
   getById: async (orderId) => {
     const response = await api.get(`/api/orders/${orderId}`);
     return response.data;
   },
 
-  // Cancel an order
+  // Matches PUT /api/orders/:orderId/cancel
   cancel: async (orderId) => {
-    return api.put(`/api/orders/${orderId}/cancel`);
-  }
+    const response = await api.put(`/api/orders/${orderId}/cancel`);
+    return response.data;
+  },
 };
