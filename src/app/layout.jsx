@@ -5,6 +5,7 @@ import "./globals.css";
 import Navbar from "@/components/layout/Navber";
 import CartDrawer from "@/components/layout/CartDrawer";
 import AppInitializer from "@/components/layout/AppInitializer";
+import GlobalModal from "@/components/layout/GlobalModal";
 
 // Font Configuration
 const inter = Inter({
@@ -31,9 +32,14 @@ export default function RootLayout({ children }) {
       <body className="font-body antialiased bg-secondary-50 text-secondary-900 selection:bg-primary-500 selection:text-white">
         {/* Navbar sits on top of content */}
         <AppInitializer />
+
         <Navbar />
+
         <main className="min-h-screen">{children}</main>
 
+        <GlobalModal />
+
+        {/* Footer */}
         <Footer />
         <CartDrawer />
         {/* Global Toast Notification System */}
