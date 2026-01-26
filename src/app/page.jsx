@@ -1,39 +1,23 @@
+
 import Hero from "@/components/sections/Hero";
 import Stats from "@/components/sections/Stats";
 import SectionHeader from "@/components/ui/SectionHeader";
 import FoodCard from "@/components/shared/FoodCard";
 import Link from "next/link";
+import { menuService } from "@/lib/services/menuService";
 
-// Mock featured data
-const FEATURED_ITEMS = [
-  {
-    id: 1,
-    name: "Truffle Risotto",
-    price: 34,
-    description: "Arborio rice, black truffle, parmesan crisp.",
-    category: "main",
-    image: "https://images.unsplash.com/photo-1476124369491-e7addf5db371?w=800",
-    isVegetarian: true,
-  },
-  {
-    id: 2,
-    name: "Wagyu Steak",
-    price: 85,
-    description: "A5 Japanese Wagyu, garlic mash, asparagus.",
-    category: "main",
-    image: "https://images.unsplash.com/photo-1546241072-48010ad2862c?w=800",
-  },
-  {
-    id: 3,
-    name: "Lobster Bisque",
-    price: 28,
-    description: "Creamy soup, chunks of maine lobster, cognac.",
-    category: "starter",
-    image: "https://images.unsplash.com/photo-1547592166-23acbe3b624b?w=800",
-  },
-];
+export default async function Home() {
 
-export default function Home() {
+  let featuredFoods = [];
+
+  try {
+    const response = await menuService.getFeatured();
+    featuredFoods = response.data || [];
+    // console.log(response);
+  } catch (error) {
+    console.error("Failed to fetch featured foods:", error);
+  }
+
   return (
     <>
       <Hero />
@@ -44,13 +28,21 @@ export default function Home() {
         <div className="container">
           <SectionHeader title="Signature Dishes" subtitle="Chef's Selection" />
 
-         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
             {featuredFoods.length > 0 ? (
               featuredFoods.map((item) => (
                 <FoodCard key={item._id} food={item} />
               ))
             ) : (
-               <div className="col-span-3 text-center text-secondary-400">Loading signature dishes...</div>
+              <div className="col-span-3 text-center py-10">
+                <p className="text-secondary-400 mb-4">
+                  Unable to load signature dishes at the moment.
+                </p>
+                {/* Optional: Add a retry button or link to full menu */}
+                <Link href="/menu" className="text-primary-600 underline">
+                  Browse Full Menu
+                </Link>
+              </div>
             )}
           </div>
 
@@ -86,5 +78,3 @@ export default function Home() {
     </>
   );
 }
-
-
