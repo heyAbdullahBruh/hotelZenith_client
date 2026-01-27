@@ -10,8 +10,6 @@ import {
   Phone,
   Mail,
   ArrowRight,
-  Clock,
-  Send,
   Star,
   ChefHat,
   Wine,

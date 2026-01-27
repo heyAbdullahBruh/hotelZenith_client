@@ -5,6 +5,7 @@ import SectionHeader from "@/components/ui/SectionHeader";
 import FoodCard from "@/components/shared/FoodCard";
 import Link from "next/link";
 import { menuService } from "@/lib/services/menuService";
+import Testimonials from "@/components/sections/Testimonials/Testimonials";
 
 export default async function Home() {
 
@@ -57,6 +58,7 @@ export default async function Home() {
         </div>
       </section>
 
+          <Testimonials />  
       {/* Simple CTA Section */}
       <section className="py-24 bg-secondary-900 text-white text-center">
         <div className="container max-w-2xl">
