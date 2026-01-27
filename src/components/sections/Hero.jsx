@@ -49,15 +49,21 @@ export default function Hero() {
         >
           <Link
             href="/bookings/table"
-            className="bg-primary-500 hover:bg-primary-600 text-white px-8 py-4 rounded-sm uppercase tracking-widest text-sm font-bold transition-all"
+            className="group relative px-8 py-4 flex items-center justify-center border border-white/10 rounded-sm uppercase tracking-widest text-sm font-bold bg-primary-500 hover:border-primary-500/50 transition-all duration-300 overflow-hidden"
           >
-            Book a Table
+            <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-in-out" />
+            <span className="relative z-10 text-white/70 group-hover:text-amber-400 transition-colors">
+              Book a Table
+            </span>
           </Link>
           <Link
             href="/menu"
-            className="border border-white hover:bg-white hover:text-secondary-900 text-white px-8 py-4 rounded-sm uppercase tracking-widest text-sm font-bold transition-all"
+            className="border border-white hover:text-secondary-900 text-white px-8 py-4 uppercase tracking-widest text-sm font-bold transition-all group relative flex items-center justify-center bg-white/2 hover:border-primary-500/50 duration-300 overflow-hidden rounded-sm"
           >
-            View Menu
+            <div className="absolute inset-0 bg-primary-500 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-in-out" />
+            <span className="relative z-10  text-amber-400 group-hover:text-white/70 transition-colors">
+              View Menu
+            </span>
           </Link>
         </motion.div>
       </div>
