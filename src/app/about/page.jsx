@@ -6,7 +6,7 @@ export const metadata = {
   description: 'A legacy of luxury and culinary excellence spanning 15 years.',
 };
 
-export default function AboutPage() {
+export default function page() {
   return (
     <div className="pt-24 pb-20">
       <div className="container">
