@@ -6,6 +6,7 @@ import FoodCard from "@/components/shared/FoodCard";
 import Link from "next/link";
 import { menuService } from "@/lib/services/menuService";
 import Testimonials from "@/components/sections/Testimonials/Testimonials";
+// import Food3DCarousel from "@/components/sections/Food3DCarousel";
 
 export default async function Home() {
 
@@ -21,6 +22,7 @@ export default async function Home() {
 
   return (
     <>
+    {/* <Food3DCarousel /> */}
       <Hero />
       <Stats />
 

@@ -298,6 +298,7 @@ export default function MenuInterface() {
     filters.isSpicy,
   ].filter(Boolean).length;
 
+  console.log(categories.map((cat) => cat.name));
   return (
     <div
       ref={scrollRef}
