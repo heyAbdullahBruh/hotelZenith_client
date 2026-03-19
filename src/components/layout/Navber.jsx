@@ -25,7 +25,7 @@ const navLinks = [
 ];
 
 const userLinks = [
-  { name: "My Dashboard", href: "/bookings/my-bookings", icon: Calendar },
+  { name: "My Dashboard", href: "/my-bookings", icon: Calendar },
   { name: "My Orders", href: "/my-orders", icon: Utensils },
 ];
 
