@@ -196,6 +196,210 @@ const FilterContent = ({
   );
 };
 
+// Add this before your return statement in the MenuInterface component
+const SortOptions = ({ value, onChange }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [hoveredOption, setHoveredOption] = useState(null);
+  const dropdownRef = useRef(null);
+
+  const sortOptions = [
+    {
+      value: "createdAt",
+      label: "Newest First",
+      icon: "✨",
+      description: "Latest additions first",
+    },
+    {
+      value: "price",
+      label: "Price: Low to High",
+      icon: "💰",
+      description: "Most affordable first",
+    },
+    {
+      value: "-price",
+      label: "Price: High to Low",
+      icon: "💎",
+      description: "Premium items first",
+    },
+    {
+      value: "rating",
+      label: "Highest Rated",
+      icon: "⭐",
+      description: "Top rated dishes",
+    },
+  ];
+
+  const currentOption =
+    sortOptions.find((opt) => opt.value === value) || sortOptions[0];
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  return (
+    <div className="relative" ref={dropdownRef}>
+      {/* Sort Button */}
+      <motion.button
+        onClick={() => setIsOpen(!isOpen)}
+        className="group relative flex items-center gap-3 px-5 py-2.5 bg-linear-to-r from-secondary-50 to-white border border-secondary-200 rounded-xl hover:border-primary-300 hover:shadow-md transition-all duration-300"
+        whileHover={{ scale: 1.02 }}
+        whileTap={{ scale: 0.98 }}
+      >
+        <div className="flex items-center gap-2">
+          <span className="text-xs font-bold uppercase tracking-wider text-secondary-400">
+            Sort By:
+          </span>
+          <div className="flex items-center gap-1.5">
+            <span className="text-base">{currentOption.icon}</span>
+            <span className="text-sm font-semibold text-secondary-900 group-hover:text-primary-600 transition-colors">
+              {currentOption.label}
+            </span>
+          </div>
+        </div>
+
+        {/* Animated Chevron */}
+        <motion.div
+          animate={{ rotate: isOpen ? 180 : 0 }}
+          transition={{ duration: 0.3, type: "spring", stiffness: 200 }}
+          className="text-secondary-400"
+        >
+          <ChevronRight size={16} className="rotate-90" />
+        </motion.div>
+
+        {/* Animated Glow Effect */}
+        <div className="absolute inset-0 rounded-xl bg-linear-to-r from-primary-500/0 via-primary-500/0 to-primary-500/0 group-hover:from-primary-500/5 group-hover:via-primary-500/10 group-hover:to-primary-500/5 transition-all duration-500 pointer-events-none" />
+      </motion.button>
+
+      {/* Dropdown Menu */}
+      <AnimatePresence>
+        {isOpen && (
+          <>
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-20"
+              onClick={() => setIsOpen(false)}
+            />
+
+            {/* Dropdown */}
+            <motion.div
+              initial={{ opacity: 0, y: -10, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -10, scale: 0.95 }}
+              transition={{ type: "spring", damping: 20, stiffness: 300 }}
+              className="absolute top-full -left-10 mt-2 w-80 bg-white rounded-2xl shadow-2xl border border-secondary-100 overflow-hidden z-50"
+            >
+              {/* Header */}
+              <div className="px-5 py-4 bg-linear-to-r from-secondary-50 to-white border-b border-secondary-100">
+                <h4 className="text-xs font-bold uppercase tracking-wider text-secondary-500">
+                  Sort Options
+                </h4>
+                <p className="text-xs text-secondary-400 mt-1">
+                  Choose how to order your menu
+                </p>
+              </div>
+
+              {/* Options List */}
+              <div className="p-2">
+                {sortOptions.map((option, index) => (
+                  <motion.button
+                    key={option.value}
+                    onClick={() => {
+                      onChange(option.value);
+                      setIsOpen(false);
+                    }}
+                    onMouseEnter={() => setHoveredOption(option.value)}
+                    onMouseLeave={() => setHoveredOption(null)}
+                    className={`
+                      relative w-full text-left px-4 py-3 rounded-xl transition-all duration-300
+                      ${
+                        value === option.value
+                          ? "bg-primary-50 text-primary-700"
+                          : "text-secondary-600 hover:bg-secondary-50"
+                      }
+                    `}
+                    whileHover={{ x: 4 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    {/* Hover Glow */}
+                    <motion.div
+                      className="absolute inset-0 bg-linear-to-r from-primary-500/5 to-transparent rounded-xl"
+                      initial={{ opacity: 0 }}
+                      animate={{
+                        opacity: hoveredOption === option.value ? 1 : 0,
+                      }}
+                      transition={{ duration: 0.2 }}
+                    />
+
+                    <div className="relative z-10 flex items-center gap-3">
+                      {/* Icon */}
+                      <div
+                        className={`
+                        w-10 h-10 rounded-xl flex items-center justify-center text-xl
+                        ${
+                          value === option.value
+                            ? "bg-primary-100 text-primary-600"
+                            : "bg-secondary-100 text-secondary-500"
+                        } transition-all duration-300
+                      `}
+                      >
+                        {option.icon}
+                      </div>
+
+                      {/* Content */}
+                      <div className="flex-1">
+                        <div className="flex items-center gap-2">
+                          <span className="font-semibold text-sm">
+                            {option.label}
+                          </span>
+                          {value === option.value && (
+                            <motion.div
+                              initial={{ scale: 0 }}
+                              animate={{ scale: 1 }}
+                              transition={{ type: "spring", stiffness: 400 }}
+                              className="w-4 h-4 rounded-full bg-primary-500 flex items-center justify-center"
+                            >
+                              <Check size={10} className="text-white" />
+                            </motion.div>
+                          )}
+                        </div>
+                        <p className="text-xs text-secondary-400 mt-0.5">
+                          {option.description}
+                        </p>
+                      </div>
+                    </div>
+                  </motion.button>
+                ))}
+              </div>
+
+              {/* Footer with animation */}
+              <motion.div
+                className="px-5 py-3 bg-secondary-50 border-t border-secondary-100"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.1 }}
+              >
+                <p className="text-[10px] text-secondary-400 text-center">
+                  Sorting affects the order of displayed items
+                </p>
+              </motion.div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+};
+
 // --- Main Component ---
 export default function MenuInterface() {
   const [categories, setCategories] = useState([]);
@@ -320,7 +524,16 @@ export default function MenuInterface() {
           </div>
           Filter & Sort
         </button>
-        <select
+
+        <div className="flex items-center gap-2">
+          <SortOptions
+            value={filters.sortBy}
+            onChange={(value) =>
+              setFilters((prev) => ({ ...prev, sortBy: value }))
+            }
+          />
+        </div>
+        {/* <select
           value={filters.sortBy}
           onChange={(e) =>
             setFilters((prev) => ({ ...prev, sortBy: e.target.value }))
@@ -330,7 +543,7 @@ export default function MenuInterface() {
           <option value="createdAt">Newest</option>
           <option value="price">Price</option>
           <option value="rating">Rating</option>
-        </select>
+        </select> */}
       </div>
 
       {/* --- MOBILE DRAWER (Modal) --- */}
@@ -437,22 +650,14 @@ export default function MenuInterface() {
             )}
           </div>
 
+          {/* Replace the entire sort section in the desktop active filters bar */}
           <div className="flex items-center gap-2">
-            <span className="text-xs font-bold uppercase text-secondary-400">
-              Sort By:
-            </span>
-            <select
+            <SortOptions
               value={filters.sortBy}
-              onChange={(e) =>
-                setFilters((prev) => ({ ...prev, sortBy: e.target.value }))
+              onChange={(value) =>
+                setFilters((prev) => ({ ...prev, sortBy: value }))
               }
-              className="border-none text-sm font-bold text-secondary-900 focus:ring-0 cursor-pointer bg-transparent py-0 pl-2 pr-8"
-            >
-              <option value="createdAt">Newest First</option>
-              <option value="price">Price: Low to High</option>
-              <option value="-price">Price: High to Low</option>
-              <option value="rating">Rating</option>
-            </select>
+            />
           </div>
         </div>
 
