@@ -36,7 +36,7 @@ export default function Hero() {
           className="font-display text-5xl md:text-7xl lg:text-8xl font-bold mb-8 leading-tight"
         >
           Taste the <br />
-          <span className="text-transparent bg-clip-text bg-linear-to-r from-primary-200 to-primary-500">
+          <span className="text-transparent bg-clip-text bg-linear-to-r from-primary-400 to-primary-500">
             Extraordinary
           </span>
         </motion.h1>
